@@ -170,7 +170,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
       <div>
         <div className="flex justify-center mb-6">
-  <img src="/logo.png" alt="Parquin logo" className="h-16 object-contain" />
+ <img src="/logo.png" alt="Parquin logo" className="h-16 object-contain" />
 </div>
 
         <div className="flex justify-center mb-6">
