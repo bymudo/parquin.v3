@@ -12,8 +12,33 @@ const zonasBase = [
   { nombre: "Pedregalejo", tipo: "pago", precio: "1.8€/hora aprox.", tiempo: 10 },
   { nombre: "Pedregalejo", tipo: "gratis", precio: "Gratis", tiempo: 17 },
   { nombre: "El Palo", tipo: "pago", precio: "1.8€/hora aprox.", tiempo: 9 },
-  { nombre: "El Palo", tipo: "gratis", precio: "Gratis", tiempo: 18 }
+  { nombre: "El Palo", tipo: "gratis", precio: "Gratis", tiempo: 18 },
+  { nombre: "Huelin", tipo: "pago", precio: "1.8€/hora aprox.", tiempo: 7 },
+  { nombre: "Huelin", tipo: "gratis", precio: "Gratis", tiempo: 13 },
+  { nombre: "Carretera de Cádiz", tipo: "pago", precio: "1.7€/hora aprox.", tiempo: 6 },
+  { nombre: "Carretera de Cádiz", tipo: "gratis", precio: "Gratis", tiempo: 12 },
+  { nombre: "Málaga Este", tipo: "pago", precio: "2€/hora aprox.", tiempo: 8 },
+  { nombre: "Málaga Este", tipo: "gratis", precio: "Gratis", tiempo: 15 },
+  { nombre: "Ciudad Jardín", tipo: "pago", precio: "1.5€/hora aprox.", tiempo: 5 },
+  { nombre: "Ciudad Jardín", tipo: "gratis", precio: "Gratis", tiempo: 11 },
+  { nombre: "Torremolinos", tipo: "pago", precio: "2€/hora aprox.", tiempo: 7 },
+  { nombre: "Torremolinos", tipo: "gratis", precio: "Gratis", tiempo: 16 },
+  { nombre: "El Limonar", tipo: "pago", precio: "2€/hora aprox.", tiempo: 10 },
+  { nombre: "El Limonar", tipo: "gratis", precio: "Gratis", tiempo: 15 },
+  { nombre: "Portada Alta", tipo: "pago", precio: "1.5€/hora aprox.", tiempo: 6 },
+  { nombre: "Portada Alta", tipo: "gratis", precio: "Gratis", tiempo: 12 },
+  { nombre: "La Luz", tipo: "pago", precio: "1.6€/hora aprox.", tiempo: 7 },
+  { nombre: "La Luz", tipo: "gratis", precio: "Gratis", tiempo: 13 },
+  { nombre: "Bailén-Miraflores", tipo: "pago", precio: "1.4€/hora aprox.", tiempo: 9 },
+  { nombre: "Bailén-Miraflores", tipo: "gratis", precio: "Gratis", tiempo: 14 },
+  { nombre: "Puerto de la Torre", tipo: "pago", precio: "1.3€/hora aprox.", tiempo: 5 },
+  { nombre: "Puerto de la Torre", tipo: "gratis", precio: "Gratis", tiempo: 10 },
+  { nombre: "La Trinidad", tipo: "pago", precio: "1.6€/hora aprox.", tiempo: 7 },
+  { nombre: "La Trinidad", tipo: "gratis", precio: "Gratis", tiempo: 13 },
+  { nombre: "Cerrado de Calderón", tipo: "pago", precio: "2€/hora aprox.", tiempo: 10 },
+  { nombre: "Cerrado de Calderón", tipo: "gratis", precio: "Gratis", tiempo: 16 }
 ];
+
 
 async function obtenerClima() {
   const API_KEY = "9f42b020bf64a9cd802f4ecddccb6d1e";
