@@ -169,7 +169,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
       <div>
-        <h1 className="text-4xl font-bold text-center mb-4">Parquin</h1>
+        <div className="flex justify-center mb-6">
+  <img src="/logo.png" alt="Parquin logo" className="h-16 object-contain" />
+</div>
+
         <div className="flex justify-center mb-6">
           <input
             type="text"
