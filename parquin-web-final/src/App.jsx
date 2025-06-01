@@ -116,14 +116,7 @@ export default function App() {
     return () => clearInterval(intervalo);
   }, []);
 
-      const clima = await obtenerClima();
-      const zonasActualizadas = ajustarTiempoPorClima(zonasBase, clima);
-      setZonas(zonasActualizadas);
-    }
-
-    actualizarPorClima();
-  }, []);
-
+      
   const zonasAgrupadas = zonas.reduce((acc, zona) => {
     const key = zona.nombre;
     if (!acc[key]) acc[key] = {};
