@@ -124,8 +124,7 @@ export default function App() {
     if (tiempo <= 20) return "😰";
     return "🥵";
   };
-
-  return (
+  
   <div className="flex justify-center mb-6">
   <input
     type="text"
