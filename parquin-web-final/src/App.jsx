@@ -125,8 +125,7 @@ export default function App() {
     return "🥵";
   };
 
-  return (
-    <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+  r<div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
   <div className="w-full md:w-auto">
     <button
       onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
