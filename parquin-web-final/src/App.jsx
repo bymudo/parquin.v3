@@ -125,36 +125,28 @@ export default function App() {
     return "🥵";
   };
   
-  return (
-    <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
-      <div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-          <div className="w-full md:w-auto">
-            <button
-              onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
-              className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow w-full md:w-auto"
-            >
-              📍 Ver parkings pagos
-            </button>
-          </div>
-
-          <input
-            type="text"
-            placeholder="Buscar zona..."
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            className="w-full max-w-md p-2 rounded-md border border-gray-300"
-          />
+  rreturn (
+  <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
+    <div>
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+        <div className="w-full md:w-auto">
+          <button
+            onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
+            className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow w-full md:w-auto"
+          >
+            📍 Ver parkings pagos
+          </button>
         </div>
 
-  <input
-    type="text"
-    placeholder="Buscar zona..."
-    value={busqueda}
-    onChange={(e) => setBusqueda(e.target.value)}
-    className="w-full max-w-md p-2 rounded-md border border-gray-300"
-  />
-</div>
+        <input
+          type="text"
+          placeholder="Buscar zona..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className="w-full max-w-md p-2 rounded-md border border-gray-300"
+        />
+      </div>
+      
     
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {zonasFiltradas.length > 0 ? zonasFiltradas.map(([nombre, tipos], i) => (
