@@ -129,9 +129,6 @@ export default function App() {
         };
       });
 
-      setZonas(zonasIntermedias);
-    };
-
     actualizarPorClimaYHorario();
 
     const intervalo = setInterval(actualizarPorClimaYHorario, 10000);
