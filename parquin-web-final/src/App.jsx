@@ -125,15 +125,24 @@ export default function App() {
     return "🥵";
   };
 
-  <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-  <div className="w-full md:w-auto">
-    <button
-      onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
-      className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow w-full md:w-auto"
-    >
-      📍 Ver parkings pagos
-    </button>
-  </div>
+  <div className="flex justify-center mb-6">
+  <input
+    type="text"
+    placeholder="Buscar zona..."
+    value={busqueda}
+    onChange={(e) => setBusqueda(e.target.value)}
+    className="w-full max-w-md p-2 rounded-md border border-gray-300"
+  />
+</div>
+
+<div className="flex justify-center mb-4">
+  <button
+    onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
+    className="bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-1.5 px-3 rounded-lg shadow"
+  >
+    📍 Ver parkings pagos en mapa
+  </button>
+</div>
 
   <input
     type="text"
