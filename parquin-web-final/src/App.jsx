@@ -129,10 +129,7 @@ export default function App() {
         };
       });
 
-      const cortes = await obtenerCortesDeTrafico();
-      const zonasFinales = ajustarTiempoPorCortes(zonasIntermedias, cortes);
-
-      setZonas(zonasFinales);
+      setZonas(zonasIntermedias);
     };
 
     actualizarPorClimaYHorario();
