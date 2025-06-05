@@ -132,7 +132,7 @@ export default function App() {
 
   const zonasConDescuento = zonasFinales.map(z => {
     return z.tipo === "pago"
-      ? { ...z, tiempo: Math.max(1, z.tiempo - 4) }
+      ? { ...z, tiempo: Math.max(1, z.tiempo - 7) }
       : z;
   });
 
