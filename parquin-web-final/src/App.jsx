@@ -140,6 +140,15 @@ export default function App() {
             className="w-full max-w-md p-2 rounded-md border border-gray-300"
           />
         </div>
+        <div className="flex justify-center mb-6">
+  <button
+    onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
+    className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-xl shadow"
+  >
+    Ver parkings pagos en mapa
+  </button>
+</div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {zonasFiltradas.length > 0 ? zonasFiltradas.map(([nombre, tipos], i) => (
             <div key={i} className="bg-white rounded-2xl shadow-md p-4">
