@@ -126,29 +126,23 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
-      <div>
-        <div className="flex justify-center mb-6">
-          <img src="/logo.png" alt="Parquin logo" className="h-28 w-28 object-contain" />
-        </div>
-        <div className="flex justify-center mb-6">
-          <input
-            type="text"
-            placeholder="Buscar zona..."
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            className="w-full max-w-md p-2 rounded-md border border-gray-300"
-          />
-        </div>
-        <div className="flex justify-center mb-4">
+    <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-6">
   <button
     onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
-    className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-1.5 px-3 rounded-lg shadow-md"
+    className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow"
   >
-    📍 Ver parkings pagos en mapa
+    📍 Ver parkings pagos
   </button>
-  </div>
-        
+
+  <input
+    type="text"
+    placeholder="Buscar zona..."
+    value={busqueda}
+    onChange={(e) => setBusqueda(e.target.value)}
+    className="w-full max-w-md p-2 rounded-md border border-gray-300"
+  />
+</div>
+    
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {zonasFiltradas.length > 0 ? zonasFiltradas.map(([nombre, tipos], i) => (
             <div key={i} className="bg-white rounded-2xl shadow-md p-4">
