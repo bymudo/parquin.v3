@@ -93,7 +93,7 @@ export default function App() {
       const zonasFinales = ajustarTiempoPorCortes(zonasConMods, cortes);
 
       const conDescuento = zonasFinales.map(z =>
-        z.tipo === "pago" ? { ...z, tiempo: Math.max(1, z.tiempo - 4) } : z
+        z.tipo === "pago" ? { ...z, tiempo: Math.max(1, z.tiempo - 6) } : z
       );
 
       setZonas(conDescuento);
