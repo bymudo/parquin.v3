@@ -53,4 +53,122 @@ const zonasBase = [
   { nombre: "Olletas", tipo: "gratis", precio: "Gratis", tiempo: 13 }
 ];
 
-// ... resto del código sin cambios
+async function obtenerClima() {
+  // Implementación
+}
+
+function obtenerModificadorPorHorario() {
+  // Implementación
+}
+
+function obtenerModificadorPorFestivo() {
+  // Implementación
+}
+
+function ajustarTiempoPorClima(zonas, clima) {
+  // Implementación
+}
+
+async function obtenerCortesDeTrafico() {
+  return [];
+}
+
+function ajustarTiempoPorCortes(zonas, cortes) {
+  return zonas;
+}
+
+export default function App() {
+  const [busqueda, setBusqueda] = useState("");
+  const [zonas, setZonas] = useState(zonasBase);
+
+  useEffect(() => {
+    const actualizar = async () => {
+      const clima = await obtenerClima();
+      const modHorario = obtenerModificadorPorHorario();
+      const modFestivo = obtenerModificadorPorFestivo();
+      let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
+        ...z,
+        tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
+      }));
+      const cortes = await obtenerCortesDeTrafico();
+      zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
+      zonasMod = zonasMod.map(z => z.tipo === "pago" ? { ...z, tiempo: Math.max(1, z.tiempo - 7) } : z);
+      setZonas(zonasMod);
+    };
+    actualizar();
+    const intervalo = setInterval(actualizar, 5 * 60 * 1000);
+    return () => clearInterval(intervalo);
+  }, []);
+
+  const zonasAgrupadas = zonas.reduce((acc, zona) => {
+    const key = zona.nombre;
+    if (!acc[key]) acc[key] = {};
+    acc[key][zona.tipo] = zona;
+    return acc;
+  }, {});
+
+  const zonasFiltradas = Object.entries(zonasAgrupadas).filter(([nombre]) =>
+    nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
+  const obtenerColor = (tiempo) => {
+    if (tiempo <= 7) return "text-green-600";
+    if (tiempo <= 15) return "text-yellow-600";
+    return "text-red-600";
+  };
+
+  const obtenerEmoji = (tiempo) => {
+    if (tiempo <= 5) return "😃";
+    if (tiempo <= 10) return "😅";
+    if (tiempo <= 15) return "😐";
+    if (tiempo <= 20) return "😰";
+    return "🥵";
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
+      <div>
+        <div className="flex justify-center mb-6">
+          <img src="/logo.png" alt="Parquin logo" className="h-28 w-28 object-contain" />
+        </div>
+        <div className="flex justify-center mb-6">
+          <input
+            type="text"
+            placeholder="Buscar zona..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            className="w-full max-w-md p-2 rounded-md border border-gray-300"
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {zonasFiltradas.length > 0 ? zonasFiltradas.map(([nombre, tipos], i) => (
+            <div key={i} className="bg-white rounded-2xl shadow-md p-4">
+              <h2 className="text-xl font-semibold mb-2">{nombre}</h2>
+              {tipos.gratis && (
+                <div className="flex items-center justify-between bg-green-50 p-3 rounded-xl mb-2">
+                  <span className="font-semibold w-1/4 text-left">Gratis</span>
+                  <span className={`font-semibold w-1/4 text-center ${obtenerColor(tipos.gratis.tiempo)}`}>{tipos.gratis.tiempo} min</span>
+                  <span className="w-1/4 text-right text-xl">{obtenerEmoji(tipos.gratis.tiempo)}</span>
+                </div>
+              )}
+              {tipos.pago && (
+                <div className="flex items-center justify-between bg-blue-50 p-3 rounded-xl">
+                  <span className="font-semibold w-1/4 text-left">Pago</span>
+                  <span className={`font-semibold w-1/4 text-center ${obtenerColor(tipos.pago.tiempo)}`}>{tipos.pago.tiempo} min</span>
+                  <span className="w-1/4 text-right text-xs text-gray-400">{tipos.pago.precio}</span>
+                </div>
+              )}
+            </div>
+          )) : (
+            <p className="text-center col-span-2 text-gray-500">No se encontraron zonas.</p>
+          )}
+        </div>
+      </div>
+      <footer className="mt-10 text-center text-xs text-gray-400 font-sans">
+        <a href="https://linktr.ee/madebymudo" target="_blank" rel="noopener noreferrer">
+          @madebymudo
+        </a>
+      </footer>
+    </div>
+  );
+}
