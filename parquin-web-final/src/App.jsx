@@ -126,13 +126,15 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-6">
-  <button
-    onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
-    className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow"
-  >
-    📍 Ver parkings pagos
-  </button>
+    <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+  <div className="w-full md:w-auto">
+    <button
+      onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
+      className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow w-full md:w-auto"
+    >
+      📍 Ver parkings pagos
+    </button>
+  </div>
 
   <input
     type="text"
