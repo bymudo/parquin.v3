@@ -125,6 +125,7 @@ export default function App() {
     return "🥵";
   };
 
+  return (
   <div className="flex justify-center mb-6">
   <input
     type="text"
