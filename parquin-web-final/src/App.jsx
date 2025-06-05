@@ -131,7 +131,7 @@ export default function App() {
 
     actualizarPorClimaYHorario();
 
-    const intervalo = setInterval(actualizarPorClimaYHorario, 10000);
+    const intervalo = setInterval(actualizarPorClimaYHorario, 5 * 60 * 1000);
     return () => clearInterval(intervalo);
   }, []);
 
