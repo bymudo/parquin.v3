@@ -96,7 +96,7 @@ export default function App() {
       setZonas(zonasMod);
     };
     actualizar();
-    const intervalo = setInterval(actualizar, 5 * 60 * 1000);
+    const intervalo = setInterval(actualizar, 5 * 60 * 5 * 60 * 1000);
     return () => clearInterval(intervalo);
   }, []);
 
