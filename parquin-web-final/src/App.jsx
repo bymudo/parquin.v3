@@ -116,23 +116,27 @@ export default function App() {
   
   useEffect(() => {
     const actualizarPorClimaYHorario = async () => {
-      const clima = await obtenerClima();
-      const zonasConClima = ajustarTiempoPorClima(zonasBase, clima);
+  const clima = await obtenerClima();
+  const zonasConClima = ajustarTiempoPorClima(zonasBase, clima);
 
-      const modificadorHorario = obtenerModificadorPorHorario();
-      const modificadorFestivo = obtenerModificadorPorFestivo();
+  const modificadorHorario = obtenerModificadorPorHorario();
+  const modificadorFestivo = obtenerModificadorPorFestivo();
 
-      let zonasIntermedias = zonasConClima.map((zona) => {
-        return {
-          ...zona,
-          tiempo: Math.max(1, zona.tiempo + modificadorHorario + modificadorFestivo),
-        };
-      });
+  let zonasIntermedias = zonasConClima.map((zona) => ({
+    ...zona,
+    tiempo: Math.max(1, zona.tiempo + modificadorHorario + modificadorFestivo),
+  }));
 
-    actualizarPorClimaYHorario();
+  const cortes = await obtenerCortesDeTrafico();
+  const zonasFinales = ajustarTiempoPorCortes(zonasIntermedias, cortes);
 
-    const intervalo = setInterval(actualizarPorClimaYHorario, 10000);
-    return () => clearInterval(intervalo);
+  const zonasConDescuento = zonasFinales.map(z => {
+    return z.tipo === "pago"
+      ? { ...z, tiempo: Math.max(1, z.tiempo - 4) }
+      : z;
+  });
+
+  setZonas(zonasConDescuento);
   }, []);
 
       
