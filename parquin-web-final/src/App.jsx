@@ -125,7 +125,7 @@ export default function App() {
     return "🥵";
   };
   
-  rreturn (
+  return (
   <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
     <div>
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
