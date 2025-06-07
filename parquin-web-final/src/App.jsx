@@ -86,8 +86,7 @@ export default function App() {
       const clima = await obtenerClima();
 const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima) || [];
 
-const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima);
-let zonasMod = (zonasAjustadas || []).map(z => ({
+let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
   ...z,
   tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
 }));
