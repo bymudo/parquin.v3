@@ -54,19 +54,24 @@ const zonasBase = [
 ];
 
 async function obtenerClima() {
-  // Implementación
+  return "soleado"; // Puedes cambiar a "nublado" o "lluvioso"
 }
 
 function obtenerModificadorPorHorario() {
-  // Implementación
+  const hora = new Date().getHours();
+  return (hora >= 17 && hora <= 20) ? 5 : 0;
 }
 
 function obtenerModificadorPorFestivo() {
-  // Implementación
+  const hoy = new Date();
+  return hoy.getDay() === 0 ? 4 : 0; // Domingo
 }
 
 function ajustarTiempoPorClima(zonas, clima) {
-  // Implementación
+  let modificador = 0;
+  if (clima === "lluvioso") modificador = 5;
+  if (clima === "nublado") modificador = 2;
+  return zonas.map(z => ({ ...z, tiempo: z.tiempo + modificador }));
 }
 
 async function obtenerCortesDeTrafico() {
@@ -84,18 +89,21 @@ export default function App() {
   useEffect(() => {
     const actualizar = async () => {
       const clima = await obtenerClima();
-const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima) || [];
+      const modHorario = obtenerModificadorPorHorario();
+      const modFestivo = obtenerModificadorPorFestivo();
 
-let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
-  ...z,
-  tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
-}));
-      
+      let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
+        ...z,
+        tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
+      }));
+
       const cortes = await obtenerCortesDeTrafico();
       zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
       zonasMod = zonasMod.map(z => z.tipo === "pago" ? { ...z, tiempo: Math.max(1, z.tiempo - 7) } : z);
+
       setZonas(zonasMod);
     };
+
     actualizar();
     const intervalo = setInterval(actualizar, 10000);
     return () => clearInterval(intervalo);
@@ -125,33 +133,33 @@ let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
     if (tiempo <= 20) return "😰";
     return "🥵";
   };
-  
+
   return (
-  <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
-    <div className="flex flex-col items-center mt-4 mb-6">
-  <img src="/logo.png" alt="Parquin logo" className="h-28 w-28 object-contain mb-2" />
-</div>
-    <div>
-      <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-        <div className="w-full md:w-auto">
-          <button
-            onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
-            className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow w-full md:w-auto"
-          >
-            📍 Ver parkings pagos
-          </button>
+    <div className="min-h-screen bg-gray-50 p-6 flex flex-col justify-between">
+      <div className="flex flex-col items-center mt-4 mb-6">
+        <img src="/logo.png" alt="Parquin logo" className="h-28 w-28 object-contain mb-2" />
+      </div>
+
+      <div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+          <div className="w-full md:w-auto">
+            <button
+              onClick={() => window.open('https://www.google.com/maps/search/parking+de+pago+Málaga', '_blank')}
+              className="bg-black hover:bg-gray-900 text-white text-sm font-medium py-2 px-4 rounded-lg shadow w-full md:w-auto"
+            >
+              📍 Ver parkings pagos
+            </button>
+          </div>
+
+          <input
+            type="text"
+            placeholder="Buscar zona..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            className="w-full max-w-md p-2 rounded-md border border-gray-300"
+          />
         </div>
 
-        <input
-          type="text"
-          placeholder="Buscar zona..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          className="w-full max-w-md p-2 rounded-md border border-gray-300"
-        />
-      </div>
-      
-    
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {zonasFiltradas.length > 0 ? zonasFiltradas.map(([nombre, tipos], i) => (
             <div key={i} className="bg-white rounded-2xl shadow-md p-4">
@@ -176,6 +184,7 @@ let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
           )}
         </div>
       </div>
+
       <footer className="mt-10 text-center text-xs text-gray-400 font-sans">
         <a href="https://linktr.ee/madebymudo" target="_blank" rel="noopener noreferrer">
           @madebymudo
