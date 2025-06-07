@@ -83,14 +83,13 @@ export default function App() {
 
   useEffect(() => {
     const actualizar = async () => {
-    const clima = await obtenerClima();
-const modHorario = obtenerModificadorPorHorario();
-const modFestivo = obtenerModificadorPorFestivo();
+      const clima = await obtenerClima();
+const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima) || [];
 
-let zonasMod = ajustarTiempoPorClima(zonasBase, clima)?.map(z => ({
+let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
   ...z,
   tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
-})) || [];
+}));
       
       const cortes = await obtenerCortesDeTrafico();
       zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
@@ -179,7 +178,7 @@ let zonasMod = ajustarTiempoPorClima(zonasBase, clima)?.map(z => ({
       </div>
       <footer className="mt-10 text-center text-xs text-gray-400 font-sans">
         <a href="https://linktr.ee/madebymudo" target="_blank" rel="noopener noreferrer">
-          @m2crumbs
+          @madebymudo
         </a>
       </footer>
     </div>
