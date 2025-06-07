@@ -82,30 +82,24 @@ export default function App() {
   const [zonas, setZonas] = useState(zonasBase);
 
   useEffect(() => {
-  const actualizar = async () => {
-    const clima = await obtenerClima();
-    const modHorario = obtenerModificadorPorHorario();
-    const modFestivo = obtenerModificadorPorFestivo();
+    const actualizar = async () => {
+      const clima = await obtenerClima();
+const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima) || [];
 
-    let zonasMod = function ajustarTiempoPorClima(zonas, clima) {
-  return zonas; //
+let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
+  ...z,
+  tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
 }));
-
-    const cortes = await obtenerCortesDeTrafico();
-    zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
-    zonasMod = zonasMod.map(z =>
-      z.tipo === "pago"
-        ? { ...z, tiempo: Math.max(1, z.tiempo - 7) }
-        : z
-    );
-
-    setZonas(zonasMod);
-  };
-
-  actualizar();
-  const intervalo = setInterval(actualizar, 10000); // actualiza cada 10s
-  return () => clearInterval(intervalo);
-}, []);
+      
+      const cortes = await obtenerCortesDeTrafico();
+      zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
+      zonasMod = zonasMod.map(z => z.tipo === "pago" ? { ...z, tiempo: Math.max(1, z.tiempo - 7) } : z);
+      setZonas(zonasMod);
+    };
+    actualizar();
+    const intervalo = setInterval(actualizar, 10000);
+    return () => clearInterval(intervalo);
+  }, []);
 
   const zonasAgrupadas = zonas.reduce((acc, zona) => {
     const key = zona.nombre;
