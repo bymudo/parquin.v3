@@ -84,12 +84,12 @@ export default function App() {
   useEffect(() => {
     const actualizar = async () => {
       const clima = await obtenerClima();
-      const modHorario = obtenerModificadorPorHorario();
-      const modFestivo = obtenerModificadorPorFestivo();
-      let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
-        ...z,
-        tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
-      }));
+const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima) || [];
+
+let zonasMod = zonasAjustadas.map(z => ({
+  ...z,
+  tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
+}));
       const cortes = await obtenerCortesDeTrafico();
       zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
       zonasMod = zonasMod.map(z => z.tipo === "pago" ? { ...z, tiempo: Math.max(1, z.tiempo - 7) } : z);
