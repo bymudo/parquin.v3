@@ -178,7 +178,7 @@ let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
       </div>
       <footer className="mt-10 text-center text-xs text-gray-400 font-sans">
         <a href="https://linktr.ee/madebymudo" target="_blank" rel="noopener noreferrer">
-          @madebymudo
+          @m2crumbs
         </a>
       </footer>
     </div>
