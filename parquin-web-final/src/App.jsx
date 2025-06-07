@@ -86,10 +86,14 @@ export default function App() {
       const clima = await obtenerClima();
 const zonasAjustadas = ajustarTiempoPorClima(zonasBase, clima) || [];
 
-let zonasMod = ajustarTiempoPorClima(zonasBase, clima).map(z => ({
-  ...z,
-  tiempo: Math.max(1, z.tiempo + modHorario + modFestivo)
-}));
+const s = async () => {
+  const data = await jd(); // Assuming jd() returns an array
+  let h = data.map(m => ({ ...m, tiempo: Math.max(1, m.tiempo + modHorario + modFestivo) }));
+  await Md();
+  h = Od(h);
+  h = h.map(m => m.tipo === "pago" ? { ...m, tiempo: Math.max(1, m.tiempo - 7) } : m);
+  r(h);
+};
       
       const cortes = await obtenerCortesDeTrafico();
       zonasMod = ajustarTiempoPorCortes(zonasMod, cortes);
